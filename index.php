@@ -15,6 +15,5 @@
         <b>SELAMAT DATANG DI SITUS WEBSITE RESMI KAMI!!!...</b>
     </marquee>
 </div>
-
 </body>
 </html>

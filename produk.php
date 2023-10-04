@@ -84,7 +84,6 @@ foreach($produk as $item) {
     echo "<p>{$item['deskripsi']}</p>";
     echo "</div>";
 }
-
 ?>
 </div>
 </body>
