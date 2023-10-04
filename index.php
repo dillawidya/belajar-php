@@ -7,15 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <a href="#" class="logo"><img src="images/logo.png" alt="Logo"></a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="produk.php">Produk</a></li>
-            <li><a href="login.php">Login</a></li>
-        </ul>
-        
-    </nav>
+<?php include 'navbar.php'; ?>
 <div class="running-text-container">
     <marquee direction="left" scrollamount="8">
         <b>SELAMAT DATANG DI SITUS WEBSITE RESMI KAMI!!!...</b>
