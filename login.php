@@ -67,7 +67,6 @@
           <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
         </a>
       </div>
-
       <p class="mb-1">
        Lupa Password? <a href="index.html">Klik Lupa Password</a>
       </p>
