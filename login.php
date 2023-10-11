@@ -24,7 +24,6 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Login dulu baru bisa lanjut...</p>
-
       <form action="proses_login.php" method="post">
         <div class="input-group mb-3">
           <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
