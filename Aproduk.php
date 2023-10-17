@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
+  <title>Produk Array</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="adminlte/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
+
 
   <!-- Preloader -->
   
@@ -31,6 +31,7 @@
   <?php include 'topbar.php'; ?>
   <?php include 'sidebar.php'; ?>
   <div class="content-wrapper">
+  
     <!-- Content Header (Page header) -->
     
     <!-- /.content-header -->
@@ -110,6 +111,14 @@ $produk = array(
               <div class="card-header">
                 <h3 class="card-title">Data Produk</h3>
               </div>
+              <div class="card-header">
+              <a class="btn btn-info btn-sm" href="create.php">
+                  <i class="fas fa-plus">
+                  </i>
+                  Tambah Data
+              </a>
+              </div>
+              
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example2" class="table table-bordered table-hover">
@@ -119,6 +128,7 @@ $produk = array(
                     <th>Harga</th>
                     <th>Deskripsi</th>
                     <th>Foto</th>
+                    <th>Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -129,6 +139,18 @@ $produk = array(
                         <td><?php echo $item['harga']; ?></td>
                         <td><?php echo $item['deskripsi']; ?></td>
                         <td><img src="<?php echo $item['gambar']; ?>" alt="<?php echo $item['nama']; ?>" width="100"></td>
+                        <td>
+                        <a class="btn btn-warning btn-sm" href="#">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                            Edit
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="#">
+                            <i class="fas fa-trash">
+                            </i>
+                            Hapus
+                        </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
                   </tbody>
@@ -138,6 +160,7 @@ $produk = array(
                     <th>Harga</th>
                     <th>Deskripsi</th>
                     <th>Foto</th>
+                    <th>Aksi</th>
                   </tr>
                   </tfoot>
                 </table>
