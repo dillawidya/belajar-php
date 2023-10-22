@@ -81,12 +81,27 @@
               <div class="card-body">
                  <?php 
                  include 'database/koneksi.php';
-                 $limit = 5; // Number of items per page
-                 $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
-                 $start = ($page - 1) * $limit; // Starting row number for the query
-                 $result = $con->query("SELECT * FROM products LIMIT $start, $limit");
-                 if ($result->num_rows > 0) {
-                    echo "<table id='example2' class='table table-bordered table-hover'>
+
+                 // Mengambil data dari tabel Produk
+                 $sql = "SELECT * FROM products ORDER BY id DESC";
+                 $result = $con->query($sql);
+                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                    $keyword = $_POST["keyword"];
+                    $kategori = $_POST["kategori"];
+                
+                    // Query untuk mencari produk berdasarkan nama, kategori, dan deskripsi
+                    $sql = "SELECT * FROM products WHERE 
+                            (product_name LIKE '%$keyword%' OR deskripsi LIKE '%$keyword%')";
+                
+                    if($kategori != "semua") {
+                        $sql .= " AND id IN (SELECT id FROM product_categories WHERE category_name = '$kategori')";
+                    }
+                
+                    $result = $con->query($sql);
+                
+                    if ($result->num_rows > 0) {
+                        echo "<h2>Hasil Pencarian</h2>";
+                        echo "<table id='example2' class='table table-bordered table-hover'>
                         <tr>
                             <th>Nama Produk</th>
                             <th>Kategori Produk</th>
@@ -96,12 +111,10 @@
                             <th>Unit</th>
                             <th>Diskon</th>
                             <th>Stok</th>
-                            <th>Aksi</th>
                         </tr>";
                 
-                    // Output data dari setiap baris
-                    while($row = $result->fetch_assoc()) {
-                        echo "<tr>
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr>
                             <td>" . $row["product_name"]. "</td>
                             <td>" . $row["category_id"]. "</td>
                             <td>" . $row["product_code"]. "</td>
@@ -110,49 +123,18 @@
                             <td>" . $row["unit"]. "</td>
                             <td>" . $row["discount_amount"]. "</td>
                             <td>" . $row["stock"]. "</td>
-                            <td>
-                            <a class='btn btn-warning btn-sm' href='Uproduk.php?edit_id=" . $row["id"] . "'>
-                                <i class='fas fa-pencil-alt'>
-                                </i>
-                                Edit
-                            </a>
-                            <a class='btn btn-danger btn-sm' href='Dproduk.php?delete_id=" . $row["id"] . "'>
-                                <i class='fas fa-trash'>
-                                </i>
-                                Hapus
-                            </a>
-                            </td>
-                        </tr>";
-                    }
+                            </tr>";
+                        }
                 
-                    echo "</table>";
+                        echo "</table>";
+                    } else {
+                        echo "Tidak ada hasil ditemukan.";
+                    }
                 }
                 
                  ?>
                
                 </table>
-                <br>
-                <?php
-                      $result = $con->query("SELECT COUNT(*) AS total FROM products");
-                      $row = $result->fetch_assoc();
-                      $total_rows = $row['total'];
-                      $total_pages = ceil($total_rows / $limit);
-
-                      if ($total_pages > 1) {
-                          echo "<ul class='pagination justify-content-center'>";
-                          if ($page > 1) {
-                              echo "<li class='page-item'><a class='page-link' href='Rproduk.php?page=".($page-1)."'>Previous</a></li>";
-                          }
-                          for ($i = 1; $i <= $total_pages; $i++) {
-                              echo "<li class='page-item ".($page == $i ? 'active' : '')."'><a class='page-link' href='Rproduk.php?page=$i'>$i</a></li>";
-                          }
-                          if ($page < $total_pages) {
-                              echo "<li class='page-item'><a class='page-link' href='Rproduk.php?page=".($page+1)."'>Next</a></li>";
-                          }
-                          echo "</ul>";
-                      }
-                  ?>
-                </div>
               </div>
               <!-- /.card-body -->
             </div>
@@ -213,3 +195,13 @@
 </body>
 </html>
 
+
+
+
+
+<?php 
+include 'database/koneksi.php';
+
+
+
+?>
