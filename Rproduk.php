@@ -84,7 +84,10 @@
                  $limit = 5; // Number of items per page
                  $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
                  $start = ($page - 1) * $limit; // Starting row number for the query
-                 $result = $con->query("SELECT * FROM products LIMIT $start, $limit");
+                 $result = $con->query("SELECT products.product_name, product_categories.category_name, products.product_code, products.deskripsi,
+                 products.price, products.unit, products.discount_amount, products.stock, products.id
+                 FROM products
+                 INNER JOIN product_categories ON products.category_id = product_categories.id LIMIT $start, $limit");
                  if ($result->num_rows > 0) {
                     echo "<table id='example2' class='table table-bordered table-hover'>
                         <tr>
@@ -103,7 +106,7 @@
                     while($row = $result->fetch_assoc()) {
                         echo "<tr>
                             <td>" . $row["product_name"]. "</td>
-                            <td>" . $row["category_id"]. "</td>
+                            <td>" . $row["category_name"]. "</td>
                             <td>" . $row["product_code"]. "</td>
                             <td>" . $row["deskripsi"]. "</td>
                             <td>" . $row["price"]. "</td>
@@ -111,12 +114,12 @@
                             <td>" . $row["discount_amount"]. "</td>
                             <td>" . $row["stock"]. "</td>
                             <td>
-                            <a class='btn btn-warning btn-sm' href='Uproduk.php?edit_id=" . $row["id"] . "'>
+                            <a class='btn btn-warning btn-sm' href='Uproduk.php?edit_id={$row['id']}'>
                                 <i class='fas fa-pencil-alt'>
                                 </i>
                                 Edit
                             </a>
-                            <a class='btn btn-danger btn-sm' href='Dproduk.php?delete_id=" . $row["id"] . "'>
+                            <a class='btn btn-danger btn-sm' href='Dproduk.php?delete_id={$row['id']}'>
                                 <i class='fas fa-trash'>
                                 </i>
                                 Hapus

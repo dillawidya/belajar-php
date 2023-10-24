@@ -74,56 +74,61 @@
         $unit = $row['unit'];
         $discount_amount = $row['discount_amount'];
         $stock = $row['stock'];
+?>
+        <form action="prosesUproduk.php" method="post">
 
-        echo "
-        <form action='prosesUproduk.php' method='post'>
-
-                <div class='card-body'>
-                <div class='form-group'>
-                    <input type='hidden' name='id' value='$id'>
+                <div class="card-body">
+                <div class="form-group">
+                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Nama Produk</label>
-                    <input type='text' name='product_name' class='form-control' placeholder='Nama Produk' value='$product_name'>
+                    <input type="text" name="product_name" class="form-control" placeholder="Nama Produk" value="<?php echo $row['product_name']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Kategori Produk</label>
-                    <input type='text' name='category_id' class='form-control' placeholder='Kategori Produk' value='$category_id'>
+                    <select name="category_id" class="form-control">
+                        <option value="1" <?php echo ($row['category_id'] === '1') ? 'selected' : ''; ?>>Sport</option>
+                        <option value="2" <?php echo ($row['category_id'] === '2') ? 'selected' : ''; ?>>Daily</option>
+                        <option value="3" <?php echo ($row['category_id'] === '3') ? 'selected' : ''; ?>>Accecoris</option>
+                    </select>
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Kode Produk</label>
-                    <input type='text' name='product_code' class='form-control' placeholder='Kode Produk' value='$product_code'>
+                    <input type="text" name="product_code" class="form-control" placeholder="Kode Produk" value="<?php echo $row['product_code']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Deskripsi</label>
-                    <input type='text' name='deskripsi' class='form-control' placeholder='Deskripsi' value='$deskripsi'>
+                    <input type="text" name="deskripsi" class="form-control" placeholder="Deskripsi" value="<?php echo $row['deskripsi']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Harga</label>
-                    <input type='text' name='price' class='form-control' placeholder='Harga' value='$price'>
+                    <input type="text" name="price" class="form-control" placeholder="Harga" value="<?php echo $row['price']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Satuan Unit</label>
-                    <input type='text' name='unit' class='form-control' placeholder='Satuan Unit' value='$unit'>
+                    <input type="text" name="unit" class="form-control" placeholder="Satuan Unit" value="<?php echo $row['unit']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Diskon</label>
-                    <input type='text' name='discount_amount' class='form-control' placeholder='Diskon %' value='$discount_amount'>
+                    <input type="text" name="discount_amount" class="form-control" placeholder="Diskon %" value="<?php echo $row['discount_amount']; ?>">
                   </div>
-                  <div class='form-group'>
+                  <div class="form-group">
                     <label>Stok</label>
-                    <input type='text' name='stock' class='form-control' placeholder='Stok' value='$stock'>
+                    <input type="text" name="stock" class="form-control" placeholder="Stok" value="<?php echo $row['stock']; ?>">
                   </div>
                   
                 </div>
                 <!-- /.card-body -->
-                <div class='card-footer'>
-                  <button type='submit' class='btn btn-warning'>Edit</button>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-warning">Edit</button>
                 </div>
-              </form>";
+              </form>
+              <?php
     } else {
         echo "Produk tidak ditemukan.";
     }
+    
 } else {
     // Mengambil data dari tabel Produk
     $sql = "SELECT * FROM products";
