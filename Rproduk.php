@@ -85,11 +85,11 @@
                  $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
                  $start = ($page - 1) * $limit; // Starting row number for the query
                  $result = $con->query("SELECT products.product_name, product_categories.category_name, products.product_code, products.deskripsi,
-                 products.price, products.unit, products.discount_amount, products.stock, products.id
+                 products.price, products.unit, products.discount_amount, products.stock, products.images, products.id
                  FROM products
-                 INNER JOIN product_categories ON products.category_id = product_categories.id LIMIT $start, $limit");
-                 if ($result->num_rows > 0) {
-                    echo "<table id='example2' class='table table-bordered table-hover'>
+                 INNER JOIN product_categories ON products.category_id = product_categories.id ORDER BY products.id DESC LIMIT $start, $limit");
+                 ?>
+                    <table id='example2' class='table table-bordered table-hover'>
                         <tr>
                             <th>Nama Produk</th>
                             <th>Kategori Produk</th>
@@ -99,39 +99,40 @@
                             <th>Unit</th>
                             <th>Diskon</th>
                             <th>Stok</th>
+                            <th>Gambar</th>
                             <th>Aksi</th>
-                        </tr>";
+                        </tr>
                 
-                    // Output data dari setiap baris
+                  
+                    <?php 
                     while($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                            <td>" . $row["product_name"]. "</td>
-                            <td>" . $row["category_name"]. "</td>
-                            <td>" . $row["product_code"]. "</td>
-                            <td>" . $row["deskripsi"]. "</td>
-                            <td>" . $row["price"]. "</td>
-                            <td>" . $row["unit"]. "</td>
-                            <td>" . $row["discount_amount"]. "</td>
-                            <td>" . $row["stock"]. "</td>
+                      ?>
+                        <tr>
+                            <td><?=$row['product_name']?></td>
+                            <td><?=$row['category_name']?></td>
+                            <td><?=$row['product_code']?></td>
+                            <td><?=$row['deskripsi']?></td>
+                            <td><?=$row['price']?></td>
+                            <td><?=$row['unit']?></td>
+                            <td><?=$row['discount_amount']?></td>
+                            <td><?=$row['stock']?></td>
+                            <td><?="<img src='".$row['images']."'style='width:100px; height:100px;'>"?></td>
+                            
                             <td>
-                            <a class='btn btn-warning btn-sm' href='Uproduk.php?edit_id={$row['id']}'>
+                            <a class="btn btn-warning btn-sm" style="margin-bottom: 5px" href="Uproduk.php?edit_id=<?php echo $row['id']; ?>">
                                 <i class='fas fa-pencil-alt'>
                                 </i>
                                 Edit
                             </a>
-                            <a class='btn btn-danger btn-sm' href='Dproduk.php?delete_id={$row['id']}'>
+                            
+                            <a class="btn btn-danger btn-sm" href="Dproduk.php?delete_id=<?php echo $row['id']; ?>">
                                 <i class='fas fa-trash'>
                                 </i>
                                 Hapus
                             </a>
                             </td>
-                        </tr>";
-                    }
-                
-                    echo "</table>";
-                }
-                
-                 ?>
+                        </tr>
+                        <?php } ?>
                
                 </table>
                 <br>

@@ -53,7 +53,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form action="prosesCproduk.php" method="post">
+              <form action="prosesCproduk.php" method="post" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
                     <label>Nama Produk</label>
@@ -104,6 +104,10 @@
                   <div class="form-group">
                     <label>Stok</label>
                     <input type="text" name="stock" class="form-control" placeholder="Stok">
+                  </div>
+                  <div class="form-group">
+                    <label>Gambar</label>
+                    <input type="file" name="image" accept="image/*" required>
                   </div>
                   
                 </div>
