@@ -1,21 +1,32 @@
 <?php
-// Set username dan password statis
-$valid_username = "username";
-$valid_password = "password";
+session_start();
 
-// Ambil input dari form
-$username = $_POST['username'];
+include 'database/koneksi.php';
+
+
+if ($con->connect_error) {
+    die("Koneksi gagal: " . $con->connect_error);
+}
+
+$no_hp = $_POST['no_hp'];
 $password = $_POST['password'];
 
-// Cek apakah autentikasi berhasil
-if ($username == $valid_username && $password == $valid_password) {
-    // Jika berhasil, redirect ke dashboard.php
-    header("Location: dashboard.php");
-    exit();
-} else {
-    // Jika gagal, kembali ke halaman login
-    header("Location: login.php");
-    exit();
-}
-?>
+$sql = "SELECT * FROM users WHERE no_hp='$no_hp' AND group_id=3";
+$result = $con->query($sql);
 
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    if (password_verify($password, $row['password'])) {
+        $_SESSION['logged_in'] = true;
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['username'] = $row['username'];
+        header("Location: dashboard.php");
+        exit();
+    }
+}
+
+header("Location: login.php");
+exit();
+
+$con->close();
+?>
